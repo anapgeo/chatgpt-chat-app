@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-*.txt
+demofile2.txt
 
 # production
 /build
