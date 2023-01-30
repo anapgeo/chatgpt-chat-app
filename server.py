@@ -13,11 +13,11 @@ content=""
 app = Flask(__name__)
 
 @app.route('/post', methods=['POST'])
-def add_todo():
-        todo_data = request.get_json()
-        content = todo_data['content']
+def add_question():
+        question = request.get_json()
+        
         f = open("demofile2.txt", "a")
-        f.write(content)
+        f.write(question)
         f.close
         return 'Done', 201  
   
@@ -26,10 +26,9 @@ def add_todo():
 def get_time():
     
     f = open("demofile2.txt", "r")
-    prompt=f.read(14)
+    prompt=f.read(20)
     f.close()
-    f = open("demofile2.txt", "a")
-    f.write(prompt)
+    f = open("demofile2.txt", "w")
     f.close()
     openai.api_key = "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"
     response = openai.Completion.create(
