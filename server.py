@@ -6,6 +6,7 @@ import datetime
 import os
 import openai
 
+
   
 x = datetime.datetime.now()
 content="" 
@@ -23,7 +24,7 @@ def add_question():
   
 # Route for seeing a data
 @app.route('/data')
-def get_time():
+def get_data():
     
     f = open("demofile2.txt", "r")
     prompt=f.read(20)
@@ -45,10 +46,6 @@ def get_time():
   
     # Returning an api for showing in  reactjs
     return {
-        'Name':"geek", 
-        "Age":"22",
-        "Date":x, 
-        "programming":"python",
         "data": response.choices[0].text
         }
   
