@@ -16,18 +16,20 @@ export default function Chat(){
     const [user, setUser] = useState('');
     const [message, setMessage] = useState('');
     const  chatMessage= new ChatMessageDto
-    
+    const [history, setHistory] = useState([]);
     let newdata=""
-    
     const  addMessage =  (message) => {
+        
+        
         let messageArray=[]
+        
+    
         console.log("ADD MESSAGE!")
         console.log("Message Array before:",messageArray)
         console.log("Message:", message)
         messageArray.push(message)
         console.log("Message Array after:",messageArray)
         
-        setChatMessages(messageArray)
         console.log(chatMessages)
     }
 
@@ -43,6 +45,7 @@ export default function Chat(){
     }
     useEffect(() => {
         console.log("imageURL shows: ", chatMessages);
+        
       }, [chatMessages])
 
     const handleEnterKey = async (event) => {
@@ -51,10 +54,33 @@ export default function Chat(){
             console.log("The question was:", event.target.value)
             chatMessage.user="Me"
             chatMessage.message=event.target.value
+            console.log(JSON.stringify(chatMessage))
 
+            await fetch('http://localhost:5000/add',{
+              method:'POST',
+              headers: {"Content-Type":"application/json"},
+              body: JSON.stringify(chatMessage)
+            })
+            console.log("New History Element")
            addMessage(chatMessage)
-           await timeout(100)
-           
+           console.log("I am here!")
+           await fetch("http://localhost:5000/history",{
+            headers : { 
+              'Content-Type': 'application/json',
+             }
+      
+          }).then((res) =>
+                
+                  {
+                res.json().then((data)=>{
+                    console.log("History:",data)
+                })  
+                  }
+           )
+                  
+                
+                
+            
            await fetch('http://localhost:5000/post',{
               method:'POST',
               headers: {"Content-Type":"application/json"},
@@ -74,8 +100,30 @@ export default function Chat(){
             ).then(()=>{
                 chatMessage.user="ChatGPT"
                   chatMessage.message=newdata
+
                  addMessage(chatMessage)
                 console.log("ANSWER")})
+                await fetch('http://localhost:5000/add',{
+                    method:'POST',
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify(chatMessage)
+                  })
+                  
+                  await fetch("http://localhost:5000/history",{
+            headers : { 
+              'Content-Type': 'application/json',
+             }
+      
+          }).then((res) =>
+                
+                  {
+                res.json().then((data)=>{
+                    console.log("History:",data)
+                    setChatMessages(data)
+                })  
+                  }
+           )
+                
         }
     }
 

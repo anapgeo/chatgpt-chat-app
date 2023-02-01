@@ -2,14 +2,22 @@
 import string
 from flask import Flask
 from flask import request
+from flask import jsonify
 import datetime
 import os
 import openai
+import json
 
+class ChatMessages:
+    def __init__(self, name, message):
+        self.name = name
+        self.message = message
 
   
 x = datetime.datetime.now()
+i=0
 content="" 
+history=[]
 # Initializing flask app
 app = Flask(__name__)
 
@@ -21,7 +29,19 @@ def add_question():
         f.write(question)
         f.close
         return 'Done', 201  
-  
+
+@app.route('/add', methods=['POST'])
+def add_history():
+        history.append(request.get_json())
+        
+        f = open("demofile1.txt", "a")
+        f.write(str(history))
+        f.close
+
+        
+        
+        return 'Done', 201  
+
 # Route for seeing a data
 @app.route('/data')
 def get_data():
@@ -48,6 +68,11 @@ def get_data():
     return {
         "data": response.choices[0].text
         }
+
+
+@app.route('/history')
+def get_history():
+    return jsonify(history)
   
       
 # Running app
