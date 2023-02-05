@@ -1,5 +1,5 @@
 # Chat-GPT React chat app
-In this project i created an chat-like interface for communication with the OPENAI's davinci model. The project consists of two main parts: The backend and the frontend apps. The backend app is developed with Flask and the frontend app with the ReactJS framework.
+In this project i created a chat interface for communication with the OPENAI's davinci model. The project consists of two main parts: The backend and the frontend apps. The backend app is developed with Flask and the frontend app with the ReactJS framework.
 
 ## How to run it
 
