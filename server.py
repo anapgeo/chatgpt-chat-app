@@ -51,7 +51,7 @@ def get_data():
     f.close()
     f = open("demofile2.txt", "w")
     f.close()
-    openai.api_key = "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"
+    openai.api_key = "YOUR_API_KEY" #Add your OPENAI api key here 
     response = openai.Completion.create(
     engine="davinci",
     prompt=prompt,
