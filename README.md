@@ -11,5 +11,7 @@ Next you should start the frontend app by typing the following command in your t
 
 `` npm start ``
 
+Also you should add your OPENAI API Key in the server.py file(There is a comment in the code). 
+
 If you face dependency issues try to run `npm install` and run the app again
 
